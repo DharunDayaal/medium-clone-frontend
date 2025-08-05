@@ -1,18 +1,18 @@
 "use client";
 
 import Button from "@/components/button";
+import PopupLayout from "@/components/popupLayout";
+import usePopupStore from "@/store/loginStore";
 import { images } from "@/utils/images";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import PopupLayout from "../popupLayout";
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = usePopupStore();
 
     return (
-        <div className="px-16 py-6 border border-b-2 border-b-black">
-            <div className="flex justify-between">
+        <div className="px-28 py-6 border-b-2 border-b-black">
+            <div className="flex justify-between items-center">
                 <Link href={"/"}>
                     <Image
                         src={images.icon}
@@ -24,7 +24,7 @@ const Header = () => {
                     />
                 </Link>
                 <div>
-                    <ul className="flex flex-row space-x-14 items-center">
+                    <ul className="flex flex-row space-x-14 items-center font-poppins text-base font-stretch-condensed">
                         <Link
                             href={""}
                             className="text-base font-inter"
@@ -39,30 +39,26 @@ const Header = () => {
                         >
                             Membership
                         </Link>
-                        <Link
-                            href={""}
-                            className="text-base font-inter"
-                            prefetch
+                        <div
+                            className="text-base font-inter cursor-pointer"
+                            onClick={() => setIsOpen(true)}
                         >
                             Write
-                        </Link>
-                        <Link href={""} className="text-base font-inter">
+                        </div>
+                        <div
+                            className="text-base font-inter cursor-pointer"
+                            onClick={() => setIsOpen(true)}
+                        >
                             Sign in
-                        </Link>
+                        </div>
                         <Button
                             name="Get started"
+                            buttonStyle="font-stretch-condensed"
                             onClick={() => setIsOpen(true)}
                         />
                     </ul>
                 </div>
             </div>
-            {
-                isOpen && (
-                    <PopupLayout isOpen={isOpen} onClose={() => setIsOpen(false)} className="w-96">
-                        <div>Hello there</div>
-                    </PopupLayout>
-                )
-            }
         </div>
     );
 };
