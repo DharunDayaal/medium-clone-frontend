@@ -3,6 +3,7 @@
 import Button from "@/components/button";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import LoginLayout from "@/components/loginPopup";
 import PopupLayout from "@/components/popupLayout";
 import usePopupStore from "@/store/loginStore";
 import Image from "next/image";
@@ -40,9 +41,9 @@ const LandingModule = () => {
                 <PopupLayout
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
-                    className="w-96"
+                    className="w-6/12"
                 >
-                    <div>Hello there</div>
+                    <LoginLayout />
                 </PopupLayout>
             )}
         </>
