@@ -1,4 +1,4 @@
-import LandingModule from "@/Modules/LandingModule";
+import LandingModule from "@/components/Modules/LandingModule";
 
 export default function Home() {
     return <LandingModule />;

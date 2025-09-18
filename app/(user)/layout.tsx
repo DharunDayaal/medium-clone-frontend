@@ -1,10 +1,33 @@
+import { UserProfileProps } from "@/interfaces/auth";
+import AuthLayoutProvider from "@/layout";
+import { getUserProfile } from "@/services/authService";
 import React from "react";
 
-const UserLayout = ({ children }: { children: React.ReactNode }) => {
+const UserLayout = async ({ children }: { children: React.ReactNode }) => {
+    let profileDetails: UserProfileProps = {
+        _id: "",
+        name: "",
+        email: "",
+        phoneNumber: "",
+        bio: "",
+        profileImage: "",
+        followersCount: 0,
+        followingCount: 0,
+    };
+
+    try {
+        const response = await getUserProfile();
+        if (response?.success) {
+            profileDetails = response?.data as UserProfileProps;
+        }
+    } catch (error) {
+        console.log("Error on getting user profile details", error);
+    }
+
     return (
-        <div className="relative bg-background flex min-h-screen flex-col">
-            <main className="min-h-80 flex-grow px-4 z-10">{children}</main>
-        </div>
+        <AuthLayoutProvider profileDetails={profileDetails}>
+            {children}
+        </AuthLayoutProvider>
     );
 };
 

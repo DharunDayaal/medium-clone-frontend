@@ -1,7 +1,7 @@
+import AuthInitializer from "@/layout/authinitializer";
 import { inter, poppins } from "@/utils/font";
 import type { Metadata } from "next";
 import "./styles/globals.css";
-import Header from "@/components/header";
 
 export const metadata: Metadata = {
     title: "Medium",
@@ -15,8 +15,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} ${poppins.className} bg-primary`}>
-                {children}
+            <body
+                className={`${inter.variable} ${poppins.className} bg-primary`}
+            >
+                <AuthInitializer>{children}</AuthInitializer>
             </body>
         </html>
     );

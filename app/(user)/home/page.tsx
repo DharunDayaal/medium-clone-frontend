@@ -1,9 +1,27 @@
-import React from 'react'
+import PostListing from "@/components/postListing";
+import { PostProps } from "@/interfaces/post";
+import { getPosts } from "@/services/postService";
 
-const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
+export const dynamic = "force-dynamic";
 
-export default HomePage
+const HomePage = async () => {
+    let postData: PostProps[] = [];
+
+    try {
+        const response = await getPosts();
+
+        if (response?.data) {
+            postData = response.data as PostProps[];
+        }
+    } catch (error) {
+        console.log("Error on post data response", error);
+    }
+
+    return (
+        <>
+            <PostListing postData={postData} />
+        </>
+    );
+};
+
+export default HomePage;

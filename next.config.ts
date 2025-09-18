@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
                             default-src 'self' 'unsafe-inline' 'unsafe-eval';
                             script-src 'self' 'unsafe-inline' 'unsafe-eval';
                             connect-src 'self' https://medium-clone-backend-flame.vercel.app
-                            image-src 'self' data:;
+                            image-src 'self' data: https://picsum.photos/200/300;
                             media-src 'self';
                             object-src 'none';
                             frame-ancestors 'none';
@@ -47,6 +47,14 @@ const nextConfig: NextConfig = {
 						value: 'geolocation=(), microphone=(), camera=()',
 					},
                 ]
+            }
+        ]
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'picsum.photos'
             }
         ]
     }

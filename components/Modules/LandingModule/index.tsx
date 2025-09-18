@@ -13,7 +13,7 @@ const LandingModule = () => {
 
     return (
         <>
-            <Header />
+            <Header userIcon="" userName="" />
             <div className="relative flex flex-col space-y-7">
                 <h1 className="w-fit mt-32 ml-36 text-8xl font-bold !font-poppins text-[#242424]">
                     Human <br />
@@ -24,7 +24,7 @@ const LandingModule = () => {
                 </p>
                 <Button
                     name="Start reading"
-                    buttonStyle="w-42 ml-36 text-base font-semibold"
+                    buttonStyle="w-42 ml-36 text-base font-semibold bg-white rounded-full text-[#242424]"
                     onClick={() => setIsOpen(true)}
                 />
                 <div className="absolute right-0 hidden md:block bg-no-repeat bg-cover bg-right min-h-screen">
