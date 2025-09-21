@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/header";
+import Header from "@/components/layout/header";
 import { UserProfileProps } from "@/interfaces/auth";
 import { useAuthStore } from "@/store/authstore";
 import { clearBrowserCookies } from "@/utils/clearBrowserCookies";
@@ -22,7 +22,6 @@ const AuthLayoutProvider = ({
         if (!isLoading && !isAuthenticated) {
             clearBrowserCookies();
             router.push("/");
-            
         }
     }, [isAuthenticated, isLoading, router]);
 
@@ -48,7 +47,10 @@ const AuthLayoutProvider = ({
 
     return (
         <div className="relative bg-background flex min-h-screen flex-col">
-            <Header userIcon={profileDetails?.profileImage} userName={profileDetails?.name} />
+            <Header
+                userIcon={profileDetails?.profileImage}
+                userName={profileDetails?.name}
+            />
             <main className="min-h-80 flex-grow p-0 z-10">{children}</main>
         </div>
     );

@@ -1,8 +1,8 @@
 "use client";
 
 import Button from "@/components/button";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
+import Footer from "@/components/layout/footer";
+import Header from "@/components/layout/header";
 import LoginLayout from "@/components/loginPopup";
 import PopupLayout from "@/components/popupLayout";
 import usePopupStore from "@/store/loginStore";
@@ -24,7 +24,7 @@ const LandingModule = () => {
                 </p>
                 <Button
                     name="Start reading"
-                    buttonStyle="w-42 ml-36 text-base font-semibold bg-white rounded-full text-[#242424]"
+                    buttonStyle="w-42 ml-36 text-base font-medium bg-black rounded-full text-white rounded-full px-4 py-2 hover:text-gray-200 cursor-pointer"
                     onClick={() => setIsOpen(true)}
                 />
                 <div className="absolute right-0 hidden md:block bg-no-repeat bg-cover bg-right min-h-screen">

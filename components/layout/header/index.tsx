@@ -129,7 +129,7 @@ const PreUserHeader = () => {
                         </div>
                         <Button
                             name="Get started"
-                            buttonStyle="font-stretch-condensed"
+                            buttonStyle="font-stretch-condensed text-base font-medium bg-black rounded-full text-white rounded-full px-4 py-2 hover:text-gray-200 cursor-pointer"
                             onClick={() => setIsOpen(true)}
                         />
                     </ul>

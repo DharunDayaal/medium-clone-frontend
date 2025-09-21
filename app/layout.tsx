@@ -1,4 +1,4 @@
-import AuthInitializer from "@/layout/authinitializer";
+import AuthInitializer from "@/components/layout/AuthProvider/authinitializer";
 import { inter, poppins } from "@/utils/font";
 import type { Metadata } from "next";
 import "./styles/globals.css";

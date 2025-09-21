@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
     const isProtectedRoute = protectedRoutes.some((pattern) => pattern.test(pathname))
 
     // If no token and user accessing protected routes redirect them to base landing page
-    if(!userAccessToken && isProtectedRoute) {
+    if(!userAccessToken && isProtectedRoute && pathname !== '/') {
         return NextResponse.redirect(new URL('/', nextUrl.origin))
     }
 
