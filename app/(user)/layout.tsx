@@ -1,5 +1,6 @@
+import AuthLayoutProvider from "@/components/layout/AuthProvider";
+import Redirect from "@/components/layout/AuthProvider/Redirect";
 import { UserProfileProps } from "@/interfaces/auth";
-import AuthLayoutProvider from "@/layout";
 import { getUserProfile } from "@/services/authService";
 import React from "react";
 
@@ -25,9 +26,11 @@ const UserLayout = async ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <AuthLayoutProvider profileDetails={profileDetails}>
-            {children}
-        </AuthLayoutProvider>
+        <Redirect isTrigger={true}>
+            <AuthLayoutProvider profileDetails={profileDetails}>
+                {children}
+            </AuthLayoutProvider>
+        </Redirect>
     );
 };
 

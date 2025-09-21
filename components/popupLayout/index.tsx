@@ -44,13 +44,25 @@ const PopupLayout = ({
 
     return (
         <div
-            className="fixed inset-0 flex items-center justify-center bg-black/50 p-2 z-50"
+            className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-black/10 pb-12 scroll-smooth pt-36 z-50 shadow-2xl"
             role="dialog"
             aria-modal="true"
         >
-            <div className={clsx("bg-white rounded-sm shadow-lg p-4 relative", className)}>
-                <button className="p-4 rounded-full cursor-pointer absolute right-0 top-0" onClick={onClose}>
-                    <Image src={images.CloseIcon} alt="close-icon" className="size-4" />
+            <div
+                className={clsx(
+                    "bg-white rounded-sm shadow-lg p-4 relative",
+                    className
+                )}
+            >
+                <button
+                    className="p-4 rounded-full cursor-pointer absolute right-0 top-0"
+                    onClick={onClose}
+                >
+                    <Image
+                        src={images.CloseIcon}
+                        alt="close-icon"
+                        className="size-4"
+                    />
                 </button>
                 {children}
             </div>

@@ -7,17 +7,17 @@ import {
     PostPayloadProps,
     TagProps,
 } from "@/interfaces/post";
-import { createPost } from "@/services/postService";
+import { editPost } from "@/services/postService";
 import { useAuthStore } from "@/store/authstore";
 import { usePostState } from "@/store/postStore";
-import { useRouter } from "next/navigation";
-import { useActionState, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useActionState, useEffect, useState } from "react";
 
 interface NewStoryModuleProps {
     tags: TagProps[];
 }
 
-const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
+const EditPostModule = ({ tags }: NewStoryModuleProps) => {
     const blogState: NewStoryFormProps = {
         values: {
             title: "",
@@ -33,8 +33,39 @@ const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
     };
     const { isEditing, post, setIsEditing, reset } = usePostState();
     const router = useRouter();
+    const pathname = usePathname();
 
-    const [tagIds, setTagIds] = useState<string[]>([]);
+    useEffect(() => {
+        return () => {
+            reset();
+        };
+    }, [pathname]);
+
+    useEffect(() => {
+        return () => {
+            if (!post?._id) {
+                router.back();
+            }
+        };
+    }, [post]);
+
+    const editingPost: NewStoryFormProps = {
+        values: {
+            title: post?.title || "",
+            content: post?.content || "",
+            tags: post?.tags.map((tag) => tag._id) || [],
+        },
+        message: "",
+        error: {
+            title: "",
+            content: "",
+            tags: "",
+        },
+    };
+
+    const [tagIds, setTagIds] = useState<string[]>(
+        isEditing ? editingPost.values.tags : []
+    );
     const [state, formAction] = useActionState(handlePostSubmit, blogState);
     const { user } = useAuthStore();
 
@@ -82,12 +113,16 @@ const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
         };
 
         try {
-            const response = await createPost(payload);
-            if (response.success) {
+            const response = await editPost(payload, post?._id || "");
+
+            if (response?.success) {
                 setTagIds([]);
+                router.back();
+                setIsEditing(false);
+                reset();
             }
         } catch (error) {
-            console.log("Error on creating a post", error);
+            console.log("Error on editing post", error);
         }
 
         return {
@@ -115,6 +150,7 @@ const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
                         aria-label="title"
                         placeholder="Title"
                         className="outline-none text-lg placeholder:text-lg"
+                        defaultValue={isEditing ? editingPost.values.title : ""}
                     />
                 </div>
                 <div className="flex flex-col space-y-1.5">
@@ -128,6 +164,9 @@ const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
                         rows={10}
                         className="outline-none resize-none"
                         placeholder="Tell your story..."
+                        defaultValue={
+                            isEditing ? editingPost.values.content : ""
+                        }
                     ></textarea>
                 </div>
                 <p className="font-semibold text-lg">Select tags</p>
@@ -155,4 +194,4 @@ const NewStoryModule = ({ tags }: NewStoryModuleProps) => {
     );
 };
 
-export default NewStoryModule;
+export default EditPostModule;

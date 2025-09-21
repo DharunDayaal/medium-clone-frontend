@@ -12,7 +12,7 @@ import { formatDate } from "@/utils/formatDate";
 import { images } from "@/utils/images";
 import clsx from "clsx";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../button";
 import CommentSidebar from "../commentSidebar";
@@ -39,6 +39,7 @@ const DisplayPost = ({
     const { isEditing, setIsEditing, setPost } = usePostState();
 
     const router = useRouter();
+    const { profile } = useParams();
 
     const handleFollow = async () => {
         try {
@@ -89,7 +90,7 @@ const DisplayPost = ({
     const handleEditPost = () => {
         setIsEditing(true);
         setPost(post);
-        router.push("/new-story");
+        router.push(`/${decodeURIComponent(profile as string)}/edit/${post.slug}-${post._id}`);
     };
 
     return (
@@ -113,6 +114,7 @@ const DisplayPost = ({
                             "cursor-pointer hover:underline text-sm"
                         )}
                         onClick={handleEditPost}
+                        disabled={isEditing}
                     >
                         {isEditing ? "Editing" : "Edit"}
                     </button>
@@ -149,7 +151,7 @@ const DisplayPost = ({
                     </p>
                 </div>
             </div>
-            <div className="border-y-1 border-y-gray-100 px-3.5 py-2 flex flex-row items-center">
+            <div className="border-y-1 border-y-gray-100 pr-3 py-2 flex flex-row items-center space-x-4">
                 {shouldFollow && (
                     <div className={"flex flex-row gap-x-2"}>
                         <Image
@@ -167,7 +169,7 @@ const DisplayPost = ({
                 )}
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="text-white px-5 py-2.5 rounded-lg border-none focus:border-none cursor-pointer flex flex-row gap-x-2"
+                    className="text-white rounded-lg border-none focus:border-none cursor-pointer flex flex-row gap-x-2"
                 >
                     <Image
                         src={images.CommentIcon}

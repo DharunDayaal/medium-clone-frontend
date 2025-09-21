@@ -37,3 +37,17 @@ export interface UserProfileProps {
     updatedAt?: null;
     __v?: null;
 }
+
+export interface UpdateProfileProps {
+    name: string;
+    email: string;
+    bio: string;
+    phoneNumber: string;
+    profileImage: string;
+    socialLinks?: {
+        website?: string;
+        twitter?: string;
+        github?: string;
+        linkedin?: string;
+    }
+}

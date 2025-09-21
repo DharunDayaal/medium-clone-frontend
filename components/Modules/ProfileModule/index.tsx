@@ -1,7 +1,9 @@
 "use client";
 
 import NotFound from "@/app/(user)/not-found";
+import PopupLayout from "@/components/popupLayout";
 import PostCover from "@/components/postCover";
+import ProfileDetails from "@/components/profileDetails";
 import { PostProps } from "@/interfaces/post";
 import { signOut } from "@/services/authService";
 import { useAuthStore } from "@/store/authstore";
@@ -23,6 +25,7 @@ const ProfileModule = ({ post, draftPost }: ProfileModuleProps) => {
     const router = useRouter();
 
     const [query, setQuery] = useState("published");
+    const [editProfile, setEditProfile] = useState(false);
 
     const selectedPosts = query === "published" ? post : draftPost;
 
@@ -111,10 +114,13 @@ const ProfileModule = ({ post, draftPost }: ProfileModuleProps) => {
                         height={0}
                         className="rounded-full h-[100px]"
                     />
-                    <p className="text-base font-semibold text-[#242424]">
+                    <p className="text-[#242424] text-base font-semibold hover:underline">
                         {user.name}
                     </p>
-                    <p className="text-xs text-green-500 mt-3 cursor-pointer hover:text-gray-600">
+                    <p
+                        className="text-xs text-green-500 mt-3 cursor-pointer hover:text-gray-600"
+                        onClick={() => setEditProfile(true)}
+                    >
                         Edit profile
                     </p>
                     <p
@@ -125,6 +131,15 @@ const ProfileModule = ({ post, draftPost }: ProfileModuleProps) => {
                     </p>
                 </div>
             </div>
+            {editProfile && (
+                <PopupLayout
+                    isOpen={editProfile}
+                    onClose={() => setEditProfile(false)}
+                    className="w-5/12"
+                >
+                    <ProfileDetails onClose={() => setEditProfile(false)} />
+                </PopupLayout>
+            )}
         </div>
     );
 };
