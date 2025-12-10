@@ -53,6 +53,9 @@ const ProfileModule = ({ post, draftPost }: ProfileModuleProps) => {
                     <p className="text-[#242424] text-5xl font-semibold">
                         {user.name}
                     </p>
+                    <p className="text-sm text-[#a0a0a0] mt-1.5">
+                        Followers {user.followersCount}
+                    </p>
                     <div className="flex flex-col mt-16 items-center space-y-12 mb-12">
                         <div className="flex flex-row items-start justify-baseline gap-x-3 w-full">
                             <p
